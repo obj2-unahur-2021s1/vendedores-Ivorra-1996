@@ -127,7 +127,7 @@ class Centros_De_Distribucion(val ciudad: Ciudad, val vendedores : MutableList<V
 
     // Metodo que devuelve un tipo de dato booleano.
     fun esRobusto() : Boolean{
-      return vendedores.count { it.esFirme() } >= 3
+      return vendedores.filter { it.esFirme() }.toSet().count() >= 3
     }
   }
 }
