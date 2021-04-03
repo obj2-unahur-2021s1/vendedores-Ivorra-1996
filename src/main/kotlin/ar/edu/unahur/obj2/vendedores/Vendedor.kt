@@ -32,6 +32,13 @@ abstract class Vendedor {
     certificaciones.add(certificacion)
   }
 
+  // Metodo que agregue para los test.
+  // No devuelve nada solo hace algo.
+  // Recibe por parametro un objeto de tipo Certificacion.
+  fun quitarCertificacion(certificacion: Certificacion){
+    certificaciones.remove(certificacion)
+  }
+
   // Devuelve un Booleano.
   fun esFirme() = this.puntajeCertificaciones() >= 30
 
@@ -103,14 +110,14 @@ class Centros_De_Distribucion(val ciudad: Ciudad, val vendedores : MutableList<V
   // Este metodo hace algo y tambien puede llegar a devolver algo.
   // Recibe por parametro, un vendedor que obviamente es un objeto de tipo Vendedor(Puede ser cualquiera de los vendedores).
   // La funcion de este metodo es simple si el vendedor no esta en la lista, lo agrega, sino tira o devuelve error.
-  fun agregar_Vendedor(vendedor : Vendedor){
-    if ( !vendedores.contains(vendedor)){
+  fun agregar_Vendedor(vendedor : Vendedor) {
+    if (!vendedores.contains(vendedor)) {
       vendedores.add(vendedor)
     }
     else {
-      error("El vendedor esta en la lista")
+      throw  Exception("El vendedor esta en la lista")
     }
-
+  }
     // Metodo que devuelve un objeto de tipo Vendedor.
     // Devuelve el vendedor que tiene el maximo puntaje total de certificiaciones.
     fun vendedor_Estrella() = vendedores.maxBy { it.puntajeCertificaciones()  }
@@ -130,7 +137,3 @@ class Centros_De_Distribucion(val ciudad: Ciudad, val vendedores : MutableList<V
       return vendedores.filter { it.esFirme() }.toSet().count() >= 3
     }
   }
-}
-
-
-
