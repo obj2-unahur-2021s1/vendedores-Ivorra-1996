@@ -128,7 +128,7 @@ class Centros_De_Distribucion(val ciudad: Ciudad, val vendedores : MutableList<V
       return vendedores.any { vendedor ->  vendedor.puedeTrabajarEn(ciudad) }
     }
 
-    // Buscar sobre los vendedores alguno que tenga al menos 1 certificacion.
+    // Buscar sobre los vendedores alguno que tenga al menos 1 de otras certificacion.
     // Metodo que devuelte un tipo Boleano.
     fun vendedores_genericos() = vendedores.any { it.otrasCertificaciones() >= 1  }
 

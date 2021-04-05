@@ -220,6 +220,9 @@ class VendedorTest : DescribeSpec({
   }
   val viajante1 = Viajante(listOf(tucuman))
   val fijo1 = VendedorFijo(carapolasca)
+  val certificacion = Certificacion(true,1)
+  val otra_certificacion = Certificacion(false,2)
+  viajante1.agregarCertificacion(certificacion)
   describe("Centros de distribuicion") {
 
     val centro1 = Centros_De_Distribucion(moron, mutableListOf(fijo1))
@@ -232,16 +235,34 @@ class VendedorTest : DescribeSpec({
     }
 
 
+    describe("¿Puede cubri Ciudad?"){
+      it("¿Carapolasca?"){
+        centro1.puede_Cubrir(carapolasca).shouldBeTrue()
+      }
+      it("¿Moron?"){
+        centro1.puede_Cubrir(moron).shouldBeFalse()
+      }
+    }
+    describe("Vendedores genericos.¿Hay alguno que tengan otra certificacion?"){
+      it("Ninguno"){
+        centro1.vendedores_genericos().shouldBeFalse()
+      }
+      viajante1.agregarCertificacion(otra_certificacion)
+      it("al menos 1"){
+        centro1.vendedores_genericos().shouldBeTrue()
+      }
+    }
 
-
-    // Este test no lo entiendo bien porque el vendedor estrella seria la suma total de puntajes de los certificados, tengo 2 tipos de vendedores....
-    // pero no tienen ninguna certificaciones, osea no tienen puntaje alguno.
-    // pero si pongo vendedor fijo1 me tira como que "esta bien".
-    // ahora, si pongo el otro vendeor viajante metira que esta mal y nose bien porque...
-    // capas es la consulta o lo que espero, que esta mal..
     describe("Vendedor estrella") {
-      centro1.vendedor_Estrella().shouldBe(fijo1)
-      // centro1.vendedor_Estrella().shouldBe(viajante1)
+      centro1.vendedor_Estrella().shouldBe(viajante1)
+    }
+    describe("¿Alguno es Robusto?"){
+      it("¿Viajante1?"){
+        centro1.esRobusto().shouldBeFalse()
+      }
+      it("¿Fijo1?"){
+        centro1.esRobusto().shouldBeFalse()
+      }
     }
   }
 })
